@@ -60,9 +60,12 @@ wrong thing).
 
 ## Recompute the release digest
 
+Run from the release root. `.git` is pruned so a clone and an extracted zip give the same number.
+
 ```sh
 # over every shipped file EXCEPT the two documents that declare the digests:
-find . -name '*.pyc' -prune -o -type f ! -name RELEASE-MANIFEST.md ! -name VERIFICATION-TARGET.md -print0 |
+find . -name '.git' -prune -o -name '*.pyc' -prune -o -type f \
+  ! -name RELEASE-MANIFEST.md ! -name VERIFICATION-TARGET.md -print0 |
   xargs -0 sha256sum | sed 's#  .*/#  #' | sort | sha256sum | cut -d' ' -f1
 # expected: 90301544af82008c85ce39431f5f87acda6f634c21261f8f8c40860d149e1032
 ```
