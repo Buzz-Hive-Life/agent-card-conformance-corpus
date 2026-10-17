@@ -1,0 +1,206 @@
+{
+  "front_matter": {
+    "publisher": "Hive Life Haven Inc. - federally incorporated non-profit (Canada NFP Act), corp no. 1661181-8. Not a registered charity; no charitable claim is made.",
+    "licence": {
+      "code": "Apache-2.0",
+      "docs": "CC-BY-4.0",
+      "fixtures_and_expected_verdicts": "CC0-1.0"
+    },
+    "certifies_nothing": "This corpus publishes criteria and expected verdicts. It is not a certification, not a mark, not an accreditation, and not an assurance opinion.",
+    "no_warranty": "Provided AS IS, without warranty of any kind, express or implied, including merchantability, fitness for a particular purpose and non-infringement.",
+    "no_reliance": "No reliance may be placed on this corpus as an assurance opinion or as evidence of any third party's conformance.",
+    "no_endorsement": "Use of these criteria, or of a verdict produced by them, does not imply endorsement by, affiliation with, or approval of the publisher. No trademark licence is granted; the publisher's name and any mark may not be used to advertise a product as passing Hive criteria without written permission.",
+    "version": "0.2.0",
+    "immutability": "A published release is immutable. Any change to an arm, fixture or expected verdict requires a new version; superseded versions stay available at their pinned digest.",
+    "errata_permalink_rule": "Errata are published as a dated permalink beside the affected release; the release itself is never edited in place.",
+    "public_surface": "unpublished - see CORPUS-v0.md section 6; A1 is MET only when an unauthenticated fetch from a non-author box of a pinned digest returns these bytes plus this licence and front-matter, recorded as a dated permalink + sha256."
+  },
+  "corpus": "card-verify",
+  "version": "0.2.0",
+  "subject": "card / identity-assertion verification (NOT authority-adherence)",
+  "generated_from": "fixtures/cases.json",
+  "generator": "build_corpus.py",
+  "arm_count": 13,
+  "arms": [
+    {
+      "id": "CV-01",
+      "subject": "positive control \u2014 tamper-free JCS card",
+      "input": {
+        "card": "card_pass.json",
+        "card_sha256": "302f63ad78ec954ffca23f8bb8c731020b45a3d5503b6f7128001cf67a4c080f",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "pass"
+    },
+    {
+      "id": "CV-02",
+      "subject": "format_drift \u2014 signed over HOUSE bytes",
+      "input": {
+        "card": "card_drift.json",
+        "card_sha256": "5ca719aaab2b9ebbef75cafc3c2e50964b449b997a8ae4e370e766f7a750f4d5",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "format_drift"
+    },
+    {
+      "id": "CV-03",
+      "subject": "key_mismatch \u2014 valid sig under the anchor, foreign kid declared",
+      "input": {
+        "card": "card_kid_mismatch.json",
+        "card_sha256": "01d58a2dc495e91e63ea006edb1d5ae498fe27f868f6ccdba01587b2c242575e",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "key_mismatch"
+    },
+    {
+      "id": "CV-04",
+      "subject": "signature_invalid \u2014 kid==fp, a field mutated after signing",
+      "input": {
+        "card": "card_tampered.json",
+        "card_sha256": "2276a2d1ad0227b82e5e2836abc13e250c584bd3814007ad5b13a17615c4d0cf",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "signature_invalid"
+    },
+    {
+      "id": "CV-05",
+      "subject": "jwks repointed \u2014 discovery disagrees with anchor",
+      "input": {
+        "card": "card_pass.json",
+        "card_sha256": "302f63ad78ec954ffca23f8bb8c731020b45a3d5503b6f7128001cf67a4c080f",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks_repoint.json",
+        "jwks_sha256": "649686d839101e0400deff0a2d51476d064907b51f1a257a61f8115fb72da00a"
+      },
+      "expected_verdict": "jwks_anchor_mismatch"
+    },
+    {
+      "id": "CV-06",
+      "subject": "axis-3 \u2014 non-ASCII card KEY",
+      "input": {
+        "card": "card_nonascii_key.json",
+        "card_sha256": "3e1fe5fca23346d2a4eda62b5c980d302477840ca9792e0cf843e48f3ce72a5a",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "refused_nonascii_key"
+    },
+    {
+      "id": "CV-07",
+      "subject": "axis-2 \u2014 float in the card",
+      "input": {
+        "card": "card_float.json",
+        "card_sha256": "d2201d74378334e3ecc1a48599f61737bb27cdb2a04607369cc5bfb5f4b5e092",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "refused_float"
+    },
+    {
+      "id": "CV-08",
+      "subject": "axis-2 \u2014 int beyond JCS-exact range (|n| >= 2^53)",
+      "input": {
+        "card": "card_big_int.json",
+        "card_sha256": "0d5c7fff64b76aac4d1012b43072d0a9ade2bf7523f118d19723fc5dff0f6d7f",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "refused_int_range"
+    },
+    {
+      "id": "CV-09",
+      "subject": "anchor_stale \u2014 kid!=fp and sig fails (rotation vs forged kid: indistinguishable locally)",
+      "input": {
+        "card": "card_pass.json",
+        "card_sha256": "302f63ad78ec954ffca23f8bb8c731020b45a3d5503b6f7128001cf67a4c080f",
+        "form": "json",
+        "anchor": "anchor_foreign.hex",
+        "anchor_sha256": "816b2627935b5d2f295079f1bb638d36e9e4995972c445ba1dcaad511a417138",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "anchor_stale"
+    },
+    {
+      "id": "CV-10",
+      "subject": "no_pinned_anchor \u2014 no anchor supplied (discovery must not fill in)",
+      "input": {
+        "card": "card_pass.json",
+        "card_sha256": "302f63ad78ec954ffca23f8bb8c731020b45a3d5503b6f7128001cf67a4c080f",
+        "form": "json",
+        "anchor": "anchor_empty.hex",
+        "anchor_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "no_pinned_anchor"
+    },
+    {
+      "id": "CV-11",
+      "subject": "ORDERING \u2014 hostile not_after must not rescue a bad signature",
+      "input": {
+        "card": "card_tampered_expiry.json",
+        "card_sha256": "5f9b5aaf8a546a25627c61947f0dd46314fe418ce84d559fd8eab71e64f1b972",
+        "form": "json",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": "jwks.json",
+        "jwks_sha256": "628aa54f285ef60ac2f6408e5c739334569d6ffc5c989c67a565e1075edf8d95"
+      },
+      "expected_verdict": "signature_invalid"
+    },
+    {
+      "id": "CV-12",
+      "subject": "JWS compact \u2014 signature over the EXACT received bytes",
+      "input": {
+        "card": "card_jws_compact.txt",
+        "card_sha256": "5c3dd2be213e48cb0d60ad44e1d7b03744efaac2023ad62c30d16430e9454322",
+        "form": "raw",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": null
+      },
+      "expected_verdict": "pass"
+    },
+    {
+      "id": "CV-13",
+      "subject": "JWS compact \u2014 wire-mutated payload (parsed-equal) is REJECTED",
+      "input": {
+        "card": "card_jws_wire_mutated.txt",
+        "card_sha256": "720a0d3e686ae3263705b4691a9fe47eb46a9c85b1f1e609f4cf7fdb16f937a0",
+        "form": "raw",
+        "anchor": "anchor.hex",
+        "anchor_sha256": "b46d9288ff870dd82bea2201ad7845b65f74c93bea030823fa30ed1cf06200f2",
+        "jwks": null
+      },
+      "expected_verdict": "signature_invalid"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "agent": "test-agent",
+  "kid": "999df246aec5397d",
+  "backend": "pure-python-rfc8032",
+  "cases": [
+    {
+      "name": "positive control \u2014 tamper-free JCS card",
+      "card": "card_pass.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "pass"
+    },
+    {
+      "name": "format_drift \u2014 signed over HOUSE bytes",
+      "card": "card_drift.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "format_drift"
+    },
+    {
+      "name": "key_mismatch \u2014 valid sig under the anchor, foreign kid declared",
+      "card": "card_kid_mismatch.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "key_mismatch"
+    },
+    {
+      "name": "signature_invalid \u2014 kid==fp, a field mutated after signing",
+      "card": "card_tampered.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "signature_invalid"
+    },
+    {
+      "name": "jwks repointed \u2014 discovery disagrees with anchor",
+      "card": "card_pass.json",
+      "jwks": "jwks_repoint.json",
+      "anchor": "anchor.hex",
+      "expect": "jwks_anchor_mismatch"
+    },
+    {
+      "name": "axis-3 \u2014 non-ASCII card KEY",
+      "card": "card_nonascii_key.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "refused_nonascii_key"
+    },
+    {
+      "name": "axis-2 \u2014 float in the card",
+      "card": "card_float.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "refused_float"
+    },
+    {
+      "name": "axis-2 \u2014 int beyond JCS-exact range (|n| >= 2^53)",
+      "card": "card_big_int.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "refused_int_range"
+    },
+    {
+      "name": "anchor_stale \u2014 kid!=fp and sig fails (rotation vs forged kid: indistinguishable locally)",
+      "card": "card_pass.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor_foreign.hex",
+      "expect": "anchor_stale"
+    },
+    {
+      "name": "no_pinned_anchor \u2014 no anchor supplied (discovery must not fill in)",
+      "card": "card_pass.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor_empty.hex",
+      "expect": "no_pinned_anchor"
+    },
+    {
+      "name": "ORDERING \u2014 hostile not_after must not rescue a bad signature",
+      "card": "card_tampered_expiry.json",
+      "jwks": "jwks.json",
+      "anchor": "anchor.hex",
+      "expect": "signature_invalid"
+    },
+    {
+      "name": "JWS compact \u2014 signature over the EXACT received bytes",
+      "card": "card_jws_compact.txt",
+      "form": "raw",
+      "anchor": "anchor.hex",
+      "expect": "pass"
+    },
+    {
+      "name": "JWS compact \u2014 wire-mutated payload (parsed-equal) is REJECTED",
+      "card": "card_jws_wire_mutated.txt",
+      "form": "raw",
+      "anchor": "anchor.hex",
+      "expect": "signature_invalid"
+    }
+  ]
+}

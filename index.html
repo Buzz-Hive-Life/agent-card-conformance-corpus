@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent card / identity-assertion conformance — an openly reproducible corpus</title>
+<meta name="description" content="A published conformance corpus for agent card and identity-assertion verification: per-test criteria, expected verdicts, committed fixtures, a frozen digest, and one recompute command that needs no membership and no shared table. This is the reproducibility demonstration; an authority-adherence corpus is the next, net-new build.">
+<style>
+  :root{--bg:#0b0b0f;--fg:#f2f2f7;--dim:#a1a1b5;--accent:#ff2d95;--accent2:#3ad1ff;--line:#26263a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:820px;margin:0 auto;padding:56px 22px 96px}
+  h1{font-size:2rem;line-height:1.25;margin:0 0 6px}
+  h2{font-size:1.15rem;margin:44px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .sub{color:var(--dim);margin:0 0 30px}
+  .tag{display:inline-block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);border:1px solid var(--accent2);border-radius:99px;padding:3px 11px;margin-bottom:18px}
+  code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  code{background:#16161f;padding:2px 6px;border-radius:4px;font-size:.9em}
+  pre{background:#111119;border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.86rem}
+  a{color:var(--accent)}
+  ul{padding-left:20px}
+  .cta{display:inline-block;margin-top:8px;background:var(--accent);color:#0b0b0f;font-weight:650;text-decoration:none;padding:11px 20px;border-radius:8px}
+  .fine{color:var(--dim);font-size:.86rem;margin-top:34px;border-top:1px solid var(--line);padding-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">Published instrument · v0</div>
+  <h1>Agent card / identity-assertion conformance — an openly reproducible corpus</h1>
+  <p class="sub">Per-test criteria, expected verdicts, committed fixtures, a frozen digest, and one
+  recompute command a stranger can run with no membership, no shared table, and no trust in the issuer.</p>
+
+  <h2>What this is</h2>
+  <p>A published set of named conformance tests for <strong>agent cards and identity assertions</strong>:
+  is this signed assertion well-formed, correctly canonicalized, and verifiable against a pinned anchor?</p>
+  <p><strong>This is the reproducibility demonstration.</strong> A corpus for <em>deployed-agent
+  authority-adherence under adversarial pressure</em> — whether an agent stays inside its declared
+  authority — is the <strong>next, net-new build</strong>, and is not what ships here. Every test states
+  its criteria and its expected verdict in public.</p>
+
+  <h2>What makes the verdict checkable</h2>
+  <ul>
+    <li>Every arm is named, with its expected verdict published beside it.</li>
+    <li>The fixtures are committed, so each arm's input is public.</li>
+    <li>A frozen digest pins the exact bytes the verdict was computed over.</li>
+    <li>One command recomputes digest and verdicts from a fresh copy — no membership, no key store, no shared table.</li>
+    <li>Two independent checks ride <em>inside</em> the instrument: published cryptography vectors (RFC&nbsp;8032) and published canonicalization vectors (RFC&nbsp;8785), so correctness is measured against an external reference rather than our own expectations.</li>
+  </ul>
+
+  <h2>Recompute it yourself</h2>
+<pre>git clone &lt;release-url&gt; &amp;&amp; cd agent-accreditation-corpus-v0
+python3 card-verify/verify_fixture.py          # 13/13 arms as expected
+python3 card-verify/oracle/verify_oracle.py    # 29/29, exit 0</pre>
+
+  <h2>What this is not</h2>
+  <p><strong>This is not a certification, not a mark, not an accreditation, and not an assurance
+  opinion.</strong> It publishes criteria and expected verdicts. It certifies nothing and no party's
+  conformance. See the front-matter in <code>card-verify/CORPUS-v0.md</code> §1.</p>
+
+  <h2>Licensing</h2>
+  <p>Split by artifact class — source under Apache&nbsp;2.0, prose under CC&nbsp;BY&nbsp;4.0, fixtures
+  dedicated to the public domain under CC0&nbsp;1.0. See <code>LICENSING.md</code>.</p>
+
+  <a class="cta" href="<release-url>">Open the release &rarr;</a>
+
+  <p class="fine">
+    Published by <strong>Hive Life Haven Inc.</strong>, a federally incorporated non-profit
+    (Canada, NFP Act), corporation no. 1661181-8. Not a registered charity; no charitable claim is made.
+    This page links a published instrument; it does not offer certification or assessment services.
+    Provided AS IS, without warranty of any kind. No trademark licence is granted and no endorsement is
+    implied by use of these criteria or of a verdict produced by them.
+  </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "payload": {
+    "agent": "test-agent",
+    "alg": "EdDSA",
+    "display": "\ud83e\uddea Example Agent",
+    "iss": "example.com",
+    "kid": "999df246aec5397d",
+    "role": "Example Agent Rle",
+    "not_after": "9999-12-31T23:59:59Z"
+  },
+  "signature": "cdedb34b0c21fb48ae46d66b9cdb3e53a4d68fdd7b49381d1cbf05d491bf8508830a307982c7b6071ade99ea64ea68c9e65d2ff597a4f7e43981496920c4590f"
+}
